@@ -5,4 +5,4 @@ from django.http import HttpResponse
 
 def expense(request):
     "this is for test"
-    print("This is my test process")
+    return HttpResponse("This is my test process")
