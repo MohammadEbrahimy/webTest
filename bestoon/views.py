@@ -13,9 +13,29 @@ def submit_expense(request):
 
     this_token = request.POST['token']
     this_user = User.objects.filter(token__token = this_token).get()
-    now = datetime.now()
+    if 'date' not in request.POST:
+        date = datetime.now()
+    else:
+        date = request.POST['date']
     Expense.objects.create(user = this_user, amount = request.POST['amount'],
-            text = request.POST['text'], date = now)
+            text = request.POST['text'], date = date)
+    return JsonResponse({
+        'status' : 'ok',
+    }, encoder=JSONEncoder)
+
+@csrf_exempt
+def submit_income(request):
+    """submit an income"""
+    print(request.POST)
+
+    this_token = request.POST['token']
+    this_user = User.objects.filter(token__token = this_token).get()
+    if 'date' not in request.POST:
+        date = datetime.now()
+    else:
+        date = request.Post['date']
+    Income.objects.create(user = this_user, amount = request.POST['amount'],
+                          text = request.POST['text'], date = date)
     return JsonResponse({
         'status' : 'ok',
     }, encoder=JSONEncoder)
