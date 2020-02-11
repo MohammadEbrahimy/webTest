@@ -20,5 +20,6 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('admin/', admin.site.urls),
-    path('', include('bestoon.urls'))
+    path('submit', include('bestoon.urls')),
+    path('', include('django.contrib.auth.urls')), # new
 ]
